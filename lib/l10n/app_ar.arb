@@ -1,0 +1,38 @@
+{
+    "language": "اللغة",
+    "english": "الانجليزية",
+    "arabic": "العربية",
+    "theme": "المظهر",
+    "dark": "داكن",
+    "light": "فاتح",
+    "home": "الرئيسية",
+    "map": "الخريطة",
+    "profile": "الملف الشخصي",
+    "favorites": "المفضلة",
+
+    
+    "all": " الكل",
+    "sport": " رياضة",
+    "birthday": " عيد ميلاد",
+    "meating": " اجتماع",
+    "gaming": " ألعاب",
+    "workshop": "ورشة عمل",
+    "book_club": "نادي الكتاب",
+    "exhibition": " معرض",
+    "holiday": "إجازة",
+    "eating": "تناول الطعام",
+
+    "event": "حدث",
+    "search": "بحث",
+    "search_hint": "   بحث عن الأحداث",
+    "no_events_found": "لم يتم العثور على أحداث",
+    "no_favorites": "لا توجد مفضلات حتى الآن",
+    "add_to_favorites": "إضافة إلى المفضلة",
+    "remove_from_favorites": "إزالة من المفضلة",
+    "event_details": "تفاصيل الحدث",
+    "location": "الموقع",
+    "date_time": "التاريخ والوقت",
+    "description": "الوصف",
+    "attendees": "الحضور",
+    "join_event": "انضم إلى الحدث"
+}
