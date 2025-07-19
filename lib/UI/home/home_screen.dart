@@ -1,4 +1,4 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+
 import 'package:eventapp/UI/home/tabs/favorite/favorite_tab.dart';
 import 'package:eventapp/UI/home/tabs/homeTab/home_tab.dart';
 import 'package:eventapp/UI/home/tabs/maps/map_tab.dart';
@@ -6,12 +6,14 @@ import 'package:eventapp/UI/home/tabs/profile/profile_tab.dart';
 import 'package:eventapp/Utilis/app_assets.dart';
 import 'package:eventapp/Utilis/app_color.dart';
 import 'package:eventapp/Utilis/app_style.dart';
-import 'package:eventapp/Utilis/app_theme.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }

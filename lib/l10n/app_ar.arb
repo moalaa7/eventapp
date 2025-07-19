@@ -9,8 +9,6 @@
     "map": "الخريطة",
     "profile": "الملف الشخصي",
     "favorites": "المفضلة",
-
-    
     "all": " الكل",
     "sport": " رياضة",
     "birthday": " عيد ميلاد",
@@ -21,7 +19,7 @@
     "exhibition": " معرض",
     "holiday": "إجازة",
     "eating": "تناول الطعام",
-
+    "this_is_a_birthday": "هذا عيد ميلاد",
     "event": "حدث",
     "search": "بحث",
     "search_hint": "   بحث عن الأحداث",

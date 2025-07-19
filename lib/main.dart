@@ -1,3 +1,4 @@
+import 'package:eventapp/UI/Authentication/login.dart';
 import 'package:eventapp/UI/home/home_screen.dart';
 import 'package:eventapp/UI/onboarding/intro_screan.dart';
 import 'package:eventapp/Utilis/app_routes.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: AppRoutes.homeRouteName,
       routes: {
+        AppRoutes.loginRouteName: (context) => Login(),
         AppRoutes.homeRouteName: (context) => HomeScreen(),
         AppRoutes.introRouteName: (context) => IntrodactionScrean(),
       },

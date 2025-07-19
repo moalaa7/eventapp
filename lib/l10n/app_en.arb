@@ -21,6 +21,8 @@
     "holiday": "Holiday",
     "eating": "Eating",
 
+    "this_is_a_birthday":"This is a Birthday",
+
     "event": "Event",
     "search": "Search",
     "search_hint": "Search for events",

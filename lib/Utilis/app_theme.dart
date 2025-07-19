@@ -5,12 +5,20 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightMode = ThemeData(
+    
+      canvasColor: AppColor.whiteColor,
+      secondaryHeaderColor: AppColor.whiteColor,
       primaryColor: AppColor.primaryLightColor,
       scaffoldBackgroundColor: AppColor.whiteColor,
-      textTheme: TextTheme(headlineLarge: AppStyle.bold20black),
-      bottomAppBarTheme: BottomAppBarTheme(
-        
-        color: AppColor.primaryLightColor),
+      ////////////////////////////////
+      textTheme: TextTheme( 
+        displayLarge: AppStyle.bold20white,
+          bodyLarge: AppStyle.bold18primary,
+          headlineLarge: AppStyle.bold20black,
+          bodyMedium: AppStyle.bold14white,
+          bodySmall: AppStyle.bold14primary),
+      ////////////////////////////////
+      bottomAppBarTheme: BottomAppBarTheme(color: AppColor.primaryLightColor),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: AppStyle.bold12white,
@@ -21,10 +29,20 @@ class AppTheme {
         backgroundColor: AppColor.primaryLightColor,
         foregroundColor: AppColor.whiteColor,
       ));
+
   static ThemeData darkMode = ThemeData(
+      canvasColor: AppColor.primaryLightColor,
+      secondaryHeaderColor: AppColor.secondryDarkColor,
       primaryColor: AppColor.primaryDarkColor,
       scaffoldBackgroundColor: AppColor.primaryDarkColor,
-      textTheme: TextTheme(headlineLarge: AppStyle.bold20white),
+      ////////////////////////////////
+      textTheme: TextTheme(
+         displayLarge: AppStyle.bold20offwhite,
+          bodyLarge: AppStyle.bold18offwhite,
+          headlineLarge: AppStyle.bold20offwhite,
+          bodyMedium: AppStyle.bold14offwhite,
+          bodySmall: AppStyle.bold14offwhite),
+      ////////////////////////////////
       bottomAppBarTheme: BottomAppBarTheme(color: AppColor.primaryDarkColor),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
