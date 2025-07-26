@@ -1,10 +1,10 @@
-
 import 'package:eventapp/UI/home/tabs/favorite/favorite_tab.dart';
 import 'package:eventapp/UI/home/tabs/homeTab/home_tab.dart';
 import 'package:eventapp/UI/home/tabs/maps/map_tab.dart';
 import 'package:eventapp/UI/home/tabs/profile/profile_tab.dart';
 import 'package:eventapp/Utilis/app_assets.dart';
 import 'package:eventapp/Utilis/app_color.dart';
+import 'package:eventapp/Utilis/app_routes.dart';
 import 'package:eventapp/Utilis/app_style.dart';
 
 import 'package:flutter/material.dart';
@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           onPressed: () {
+            Navigator.of(context).pushNamed(AppRoutes.addEventRouteName);
             // Handle the action for the floating action button
           },
           child: Icon(Icons.add, color: AppColor.whiteColor),

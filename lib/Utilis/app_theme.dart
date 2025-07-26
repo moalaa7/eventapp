@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightMode = ThemeData(
-    
       canvasColor: AppColor.whiteColor,
       secondaryHeaderColor: AppColor.whiteColor,
       primaryColor: AppColor.primaryLightColor,
       scaffoldBackgroundColor: AppColor.whiteColor,
+      appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: AppColor.primaryLightColor)),
       ////////////////////////////////
-      textTheme: TextTheme( 
-        displayLarge: AppStyle.bold20white,
+      textTheme: TextTheme(
+          displayLarge: AppStyle.bold20white,
           bodyLarge: AppStyle.bold18primary,
           headlineLarge: AppStyle.bold20black,
           bodyMedium: AppStyle.bold14white,
@@ -35,9 +36,11 @@ class AppTheme {
       secondaryHeaderColor: AppColor.secondryDarkColor,
       primaryColor: AppColor.primaryDarkColor,
       scaffoldBackgroundColor: AppColor.primaryDarkColor,
+      appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: AppColor.primaryLightColor)),
       ////////////////////////////////
       textTheme: TextTheme(
-         displayLarge: AppStyle.bold20offwhite,
+          displayLarge: AppStyle.bold20offwhite,
           bodyLarge: AppStyle.bold18offwhite,
           headlineLarge: AppStyle.bold20offwhite,
           bodyMedium: AppStyle.bold14offwhite,

@@ -2,9 +2,12 @@ import 'package:eventapp/UI/home/tabs/homeTab/event_items.dart';
 import 'package:eventapp/UI/home/tabs/homeTab/event_tab_item.dart';
 import 'package:eventapp/Utilis/app_assets.dart';
 import 'package:eventapp/Utilis/app_color.dart';
+import 'package:eventapp/Utilis/app_style.dart';
+import 'package:eventapp/providers/eventlist_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
   HomeTab({super.key});
@@ -14,23 +17,16 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    var eventListProvider = Provider.of<EventListProvider>(context);
+    eventListProvider.geteventNameList(context);
+    if (eventListProvider.eventList.isEmpty) {
+      eventListProvider.getAllEvent();
+    }
+
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    List<String> eventNameList = [
-      AppLocalizations.of(context)!.all,
-      AppLocalizations.of(context)!.sport,
-      AppLocalizations.of(context)!.birthday,
-      AppLocalizations.of(context)!.meating,
-      AppLocalizations.of(context)!.gaming,
-      AppLocalizations.of(context)!.workshop,
-      AppLocalizations.of(context)!.book_club,
-      AppLocalizations.of(context)!.exhibition,
-      AppLocalizations.of(context)!.holiday,
-      AppLocalizations.of(context)!.eating,
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -80,22 +76,27 @@ class _HomeTabState extends State<HomeTab> {
                 height: height * 0.015,
               ),
               DefaultTabController(
-                  length: eventNameList.length,
+                  length: eventListProvider.eventNameList.length,
                   child: TabBar(
                     onTap: (index) {
-                      selectedIndex = index;
-                      setState(() {});
+                      eventListProvider.ChangeSelectedIndex(index);
                     },
                     isScrollable: true,
                     tabAlignment: TabAlignment.start,
                     labelPadding: EdgeInsets.zero,
                     indicatorColor: AppColor.transparentColor,
                     dividerColor: AppColor.transparentColor,
-                    tabs: eventNameList
+                    tabs: eventListProvider.eventNameList
                         .map((eventName) => EventTabItem(
+                              selectedTextStyle:
+                                  Theme.of(context).textTheme.bodySmall,
+                              unSelectedTextStyle:
+                                  Theme.of(context).textTheme.bodyMedium,
+                              selectedGgColor: AppColor.whiteColor,
                               eventName: eventName,
-                              isSelected: selectedIndex ==
-                                  eventNameList.indexOf(eventName),
+                              isSelected: eventListProvider.selectedIndex ==
+                                  eventListProvider.eventNameList
+                                      .indexOf(eventName),
                             ))
                         .toList(),
                   ))
@@ -106,8 +107,18 @@ class _HomeTabState extends State<HomeTab> {
       body: Column(
         children: [
           Expanded(
-              child: ListView.builder(
-                  itemBuilder: (context, index) => EventItem(), itemCount: 3))
+              child: eventListProvider.filterEventList.isEmpty
+                  ? Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.no_events_found,
+                        style: AppStyle.bold20primary,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemBuilder: (context, index) => EventItem(
+                            event: eventListProvider.filterEventList[index],
+                          ),
+                      itemCount: eventListProvider.filterEventList.length))
         ],
       ),
     );
