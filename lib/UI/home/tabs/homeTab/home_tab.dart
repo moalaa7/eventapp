@@ -1,3 +1,4 @@
+import 'package:eventapp/UI/home/Event%20Details/event_details_screen.dart';
 import 'package:eventapp/UI/home/tabs/homeTab/event_items.dart';
 import 'package:eventapp/UI/home/tabs/homeTab/event_tab_item.dart';
 import 'package:eventapp/Utilis/app_assets.dart';
@@ -17,9 +18,21 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  late EventListProvider eventListProvider;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      eventListProvider.selectedIndex == 0
+          ? eventListProvider.getAllEvent()
+          : eventListProvider.getFilteredEventFromFireStore();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var eventListProvider = Provider.of<EventListProvider>(context);
+    eventListProvider = Provider.of<EventListProvider>(context);
     eventListProvider.geteventNameList(context);
     if (eventListProvider.eventList.isEmpty) {
       eventListProvider.getAllEvent();
@@ -115,10 +128,22 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     )
                   : ListView.builder(
-                      itemBuilder: (context, index) => EventItem(
-                            event: eventListProvider.filterEventList[index],
-                          ),
-                      itemCount: eventListProvider.filterEventList.length))
+                      itemCount: eventListProvider.filterEventList.length,
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EventDetailsScreen( 
+                                event: eventListProvider.filterEventList[index],
+                              ),
+                            ),
+                          );
+                        },
+                        child: EventItem(
+                          event: eventListProvider.filterEventList[index],
+                        ),
+                      ),
+                    ))
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:eventapp/UI/Widgets/custom_text_formfield.dart';
 import 'package:eventapp/UI/home/tabs/homeTab/event_tab_item.dart';
 import 'package:eventapp/Utilis/app_assets.dart';
 import 'package:eventapp/Utilis/app_color.dart';
+import 'package:eventapp/Utilis/app_routes.dart';
 import 'package:eventapp/Utilis/app_style.dart';
 import 'package:eventapp/Utilis/firebaseutilis.dart';
 import 'package:eventapp/models/event.dart';
@@ -16,7 +17,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class AddEvent extends StatefulWidget {
-  AddEvent({super.key});
+  final Event? event;
+  AddEvent({super.key, this.event});
 
   @override
   State<AddEvent> createState() => _AddEventState();
@@ -25,16 +27,35 @@ class AddEvent extends StatefulWidget {
 class _AddEventState extends State<AddEvent> {
   String selectedImage = '';
   String selectedeventName = '';
-
   late EventListProvider eventListProvider;
 
-  int selectedIndex = 0;
-  TextEditingController title_controller = TextEditingController();
-  TextEditingController description_controller = TextEditingController();
+  int selectedIndex = EventListProvider().selectedIndex;
+  late TextEditingController title_controller;
+  late TextEditingController description_controller;
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
   String FormatedTime = '';
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    title_controller = TextEditingController(text: widget.event?.title ?? '');
+    description_controller =
+        TextEditingController(text: widget.event?.description ?? '');
+    selectedDate = widget.event?.dateTime;
+    // selectedTime = TimeOfDay.fromDateTime(widget.event!.dateTime?? DateTime.now());
+  }
+
+  @override
+  void dispose() {
+    title_controller.dispose();
+    description_controller.dispose();
+
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     eventListProvider = Provider.of<EventListProvider>(context);
@@ -67,12 +88,16 @@ class _AddEventState extends State<AddEvent> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          AppLocalizations.of(context)!.create_event,
-          style: AppStyle.bold20primary,
-        ),
-      ),
+          centerTitle: true,
+          title: widget.event == null
+              ? Text(
+                  AppLocalizations.of(context)!.create_event,
+                  style: AppStyle.bold20primary,
+                )
+              : Text(
+                  AppLocalizations.of(context)!.edit_event,
+                  style: AppStyle.bold20primary,
+                )),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: width * 0.03),
         child: SingleChildScrollView(
@@ -88,7 +113,7 @@ class _AddEventState extends State<AddEvent> {
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
                             image: AssetImage(
-                              eventImageList[selectedIndex],
+                              eventImageList[ selectedIndex],
                             ),
                             fit: BoxFit.fill))),
                 SizedBox(
@@ -170,14 +195,20 @@ class _AddEventState extends State<AddEvent> {
                     Spacer(),
                     TextButton(
                         onPressed: chooseTime,
-                        child: Text(selectedTime == null
-                            ? AppLocalizations.of(context)!.choose_time
-                            : FormatedTime))
+                        child: widget.event?.time == null
+                            ? Text(selectedTime == null
+                                ? AppLocalizations.of(context)!.choose_time
+                                : FormatedTime)
+                            : Text(widget.event!.time))
                   ],
                 ),
-                CustomButton(
-                    onpressed: addEvent,
-                    text: AppLocalizations.of(context)!.add_event)
+                widget.event == null
+                    ? CustomButton(
+                        onpressed: addEvent,
+                        text: AppLocalizations.of(context)!.add_event)
+                    : CustomButton(
+                        onpressed: updateEvent,
+                        text: AppLocalizations.of(context)!.update_event)
               ],
             ),
           ),
@@ -210,6 +241,22 @@ class _AddEventState extends State<AddEvent> {
           Navigator.pop(context);
         },
       );
+    }
+  }
+
+  void updateEvent() {
+    if (formKey.currentState?.validate() == true) {
+      Event updatedEvent = Event(
+          id: widget.event!.id,
+          title: title_controller.text,
+          image: selectedImage,
+          dateTime: selectedDate!,
+          description: description_controller.text,
+          eventName: selectedeventName,
+          time: FormatedTime);
+          
+      eventListProvider.updateEvent(updatedEvent);
+         Navigator.popUntil(context, ModalRoute.withName(AppRoutes.homeRouteName));
     }
   }
 

@@ -99,4 +99,20 @@ class EventListProvider extends ChangeNotifier {
     ).toList();
     notifyListeners();
   }
+
+  void updateEvent(Event event) async {
+    await FireBaseUtilis.getEventCollection()
+        .doc(event.id)
+        .update(event.toFireStore()).timeout(Duration(milliseconds: 500),onTimeout: () {},);
+    selectedIndex == 0 ? getAllEvent() : getFilteredEventFromFireStore();
+    // getFavoriteEvent();
+    notifyListeners();
+  }
+
+  void deleteEvent(String eventId) async {
+    await FireBaseUtilis.getEventCollection().doc(eventId).delete().timeout(Duration(milliseconds: 500),onTimeout: () {},);
+    selectedIndex == 0 ? getAllEvent() : getFilteredEventFromFireStore();
+    getFavoriteEvent();
+    notifyListeners();
+  }
 }

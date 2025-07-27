@@ -72,6 +72,10 @@
     "re_password": "إعادة إدخال كلمة المرور",
     "create_event": "إنشاء حدث",
     "register_success": "تم التسجيل بنجاح",
+      "update_event": " تحديث الحدث",
+    "event_updated": " تم تحديث الحدث بنجاح",
+    "event_deleted": " تم حذف الحدث بنجاح",
+    "error": " خطأ",
     "login_success": "تم تسجيل الدخول بنجاح"
 
 }

@@ -68,7 +68,10 @@
    "register_success": "Registration Successful",
     "login_success": "Login Successful",
     "or": "Or",
-  
+  "update_event": "Update Event",
+    "event_updated": "Event Updated Successfully",
+    "event_deleted": "Event Deleted Successfully",
+    "error": "Error",
     "login_with_google": "Login with Google"
 
 
